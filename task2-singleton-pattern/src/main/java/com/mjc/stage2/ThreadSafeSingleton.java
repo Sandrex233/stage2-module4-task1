@@ -4,15 +4,13 @@ public class ThreadSafeSingleton {
     // Write your code here!
     private static volatile ThreadSafeSingleton instance;
 
-    private ThreadSafeSingleton() {}
-    public static ThreadSafeSingleton getInstance() {
-        ThreadSafeSingleton result = instance;
-        if (result == null) {
-            synchronized (ThreadSafeSingleton.class) {
-                result = instance;
-                if (result == null) instance = result = new ThreadSafeSingleton();
-            }
+    private ThreadSafeSingleton() {
+    }
+
+    public static synchronized ThreadSafeSingleton getInstance() {
+        if (instance == null) {
+            instance = new ThreadSafeSingleton();
         }
-        return result;
+        return instance;
     }
 }
